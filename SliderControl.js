@@ -83,7 +83,7 @@ var SliderControl = L.Control.extend({
 	        step: 1,
 	        slide: function (e, ui) {
 				//If there is no time property, this line has to be removed (or exchanged with a different property
-	            //$('#slider-timestamp').html(options.markers[ui.value].feature.properties.time.substr(0, 19));
+	            $('#slider-timestamp').html(options.markers[ui.value].feature.properties.time.substr(0, 19));
 
 	            for (i = options.minValue; i < ui.value ; i++) {
 	                map.addLayer(options.markers[i]);
