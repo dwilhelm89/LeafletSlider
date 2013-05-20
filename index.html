@@ -22,25 +22,53 @@
 
 		var sliderControl = null;
 		
-		var map = L.map('map').setView([51.9,7.9],9);
+		var map = L.map('map').setView([51.6,-0.09],9);
 
 		L.tileLayer('http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/997/256/{z}/{x}/{y}.png', {
 			maxZoom: 18,
 			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>'
 		}).addTo(map);
 		
+		/*
+		Use usual LayerGroups instead of GeoJSON fetched markers
+		
+		var marker1 = L.marker([51.5, -0.09]);
+		var marker2 = L.marker([51.6, -0.09]);
+		var marker3 = L.marker([51.7, -0.09]);
+		var marker4 = L.marker([51.8, -0.09]);
+		
+		var pointA = new L.LatLng(51.8, -0.09);
+		var pointB = new L.LatLng(51.9, -0.2);
+		var pointList = [pointA, pointB];
+
+		var polyline = new L.Polyline(pointList, {
+			color: 'red',
+			weight: 3,
+			opacity: 1,
+			smoothFactor: 1
+
+		});
+		
+		
+		layerGroup = L.layerGroup([marker1, marker2, marker3, marker4, polyline ]);
+		var sliderControl = new SliderControl({layer:layerGroup});
+		map.addControl(sliderControl);
+		sliderControl.startSlider();
+		*/
+		
 		
 		//Fetch some data from a GeoJSON file
 		$.getJSON("points.json", function (json) {
 		
 			testlayer = L.geoJson(json);
-			sliderControl = new SliderControl({position: "topright", layer: testlayer});
+			sliderControl = new SliderControl({position: "bottomright", layer: testlayer});
 		
 			//Make sure to add the slider to the map ;-)
 			map.addControl(sliderControl);
 			//An initialize the slider
 			sliderControl.startSlider();
         });
+		
 		
 	</script>
 </body>

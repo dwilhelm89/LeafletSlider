@@ -77,18 +77,18 @@ var SliderControl = L.Control.extend({
 	startSlider: function () {
 	    options = this.options;
 	    $("#leaflet-slider").slider({
-	        value: options.minValue,
+	        value: options.minValue + 1,
 	        min: options.minValue,
-	        max: options.maxValue,
+	        max: options.maxValue +1,
 	        step: 1,
 	        slide: function (e, ui) {
 				//If there is no time property, this line has to be removed (or exchanged with a different property
-	            $('#slider-timestamp').html(options.markers[ui.value].feature.properties.time.substr(0, 19));
+	            //$('#slider-timestamp').html(options.markers[ui.value].feature.properties.time.substr(0, 19));
 
-	            for (i = options.minValue; i < ui.value; i++) {
+	            for (i = options.minValue; i < ui.value ; i++) {
 	                map.addLayer(options.markers[i]);
 	            }
-	            for (i = ui.value; i < options.maxValue; i++) {
+	            for (i = ui.value; i <= options.maxValue; i++) {
 	                map.removeLayer(options.markers[i]);
 	            }
 			}
