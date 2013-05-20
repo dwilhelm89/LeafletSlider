@@ -35,3 +35,37 @@ map.addControl(sliderControl);
 //An initialize the slider
 sliderControl.startSlider();
 ````
+
+If your markers don't have a time property make sure to delete this line: (SliderControl.js - line 86)
+```javascript
+$('#slider-timestamp').html(options.markers[ui.value].feature.properties.time.substr(0, 19));
+````
+
+The Leaflet Slider can also be used for usual LayerGroups with mixed features (Markers and Lines, etc.)
+```javascript
+var marker1 = L.marker([51.5, -0.09]);
+var marker2 = L.marker([51.6, -0.09]);
+var marker3 = L.marker([51.7, -0.09]);
+var marker4 = L.marker([51.8, -0.09]);
+	
+var pointA = new L.LatLng(51.8, -0.09);
+var pointB = new L.LatLng(51.9, -0.2);
+var pointList = [pointA, pointB];
+
+var polyline = new L.Polyline(pointList, {
+	color: 'red',
+	weight: 3,
+	opacity: 1,
+	smoothFactor: 1
+});
+		
+		
+layerGroup = L.layerGroup([marker1, marker2, marker3, marker4, polyline ]);
+var sliderControl = new SliderControl({layer:layerGroup});
+map.addControl(sliderControl);
+sliderControl.startSlider();
+````
+
+Author
+-----
+Dennis Wilhelm, 2013
