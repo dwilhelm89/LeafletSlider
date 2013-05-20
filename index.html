@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Leaflet Time Slider Example</title>
+	<meta charset="utf-8" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.css" />
+	<!--[if lte IE 8]><link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.ie.css" /><![endif]-->
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css"type="text/css">
+</head>
+<body>
+	<div id="map" style="width: 100%; height: 600px"></div>
+
+	<script src="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.js"></script>
+	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+	<script src="SliderControl.js"></script>
+	
+	<script>
+
+		var sliderControl = null;
+		
+		var map = L.map('map').setView([51.9,7.9],9);
+
+		L.tileLayer('http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/997/256/{z}/{x}/{y}.png', {
+			maxZoom: 18,
+			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>'
+		}).addTo(map);
+		
+		
+		//Fetch some data from a GeoJSON file
+		$.getJSON("points.json", function (json) {
+		
+			testlayer = L.geoJson(json);
+			sliderControl = new SliderControl({position: "topright", layer: testlayer});
+		
+			//Make sure to add the slider to the map ;-)
+			map.addControl(sliderControl);
+			//An initialize the slider
+			sliderControl.startSlider();
+        });
+		
+	</script>
+</body>
+</html>
