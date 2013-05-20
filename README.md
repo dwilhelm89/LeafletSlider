@@ -5,6 +5,9 @@ The [Leaflet](http://leafletjs.com/) Time-Slider enables you to dynamically add 
 ](http://jqueryui.com/slider/).
 
 
+Check out the [Demo](http://dwilhelm89.github.io/LeafletSlider/)!
+
+
 Usage
 -----
 Add: 
