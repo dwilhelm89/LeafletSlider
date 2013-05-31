@@ -32,7 +32,7 @@ sliderControl = new SliderControl({position: "topright", layer: testlayer});
 //Make sure to add the slider to the map ;-)
 map.addControl(sliderControl);
 
-//An initialize the slider
+//And initialize the slider
 sliderControl.startSlider();
 ````
 
