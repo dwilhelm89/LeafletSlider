@@ -1,0 +1,21 @@
+{
+  "name": "LeafletSlider",
+  "description": "The Leaflet Time-Slider enables you to dynamically add and remove Markers on a map by using a JQuery UI slider.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dwilhelm89/LeafletSlider.git"
+  },
+  "private": true,
+  "author": "Dennis Wilhelm",
+  "license": [
+    {
+      "type": "MIT"
+    }
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-uglify": "~0.2.2"
+  }
+}
