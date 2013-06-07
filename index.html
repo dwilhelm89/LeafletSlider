@@ -22,7 +22,7 @@
 
 		var sliderControl = null;
 		
-		var map = L.map('map').setView([51.6,-0.09],9);
+		var map = L.map('map').setView([52.06,7.40],10);
 
 		L.tileLayer('http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/997/256/{z}/{x}/{y}.png', {
 			maxZoom: 18,
@@ -59,9 +59,8 @@
 		
 		//Fetch some data from a GeoJSON file
 		$.getJSON("points.json", function (json) {
-		
-			testlayer = L.geoJson(json);
-			sliderControl = new SliderControl({position: "bottomright", layer: testlayer});
+			var testlayer = L.geoJson(json),
+				sliderControl = L.control.sliderControl({position: "topright", layer: testlayer});
 		
 			//Make sure to add the slider to the map ;-)
 			map.addControl(sliderControl);
