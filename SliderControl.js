@@ -1,4 +1,4 @@
-var SliderControl = L.Control.extend({
+L.Control.SliderControl = L.Control.extend({
     options: {
 		position: 'topright',
 		layers: null,
@@ -11,7 +11,6 @@ var SliderControl = L.Control.extend({
 	    L.Util.setOptions(this, options);
 	    this._layer = this.options.layer;
     },
-
 
     setPosition: function (position) {
         var map = this._map;
@@ -45,13 +44,13 @@ var SliderControl = L.Control.extend({
 	        $('#slider-timestamp').html('');
 	    });
 
-	    var options = this.options
-	    this.options.markers = new Array();
+	    var options = this.options;
+	    this.options.markers = [];
 
 	    //If a layer has been provided: calculate the min and max values for the slider
 	    if (this._layer) {
 	        this._layer.eachLayer(function (layer) {
-	            if (options.minValue == -1) {
+	            if (options.minValue === -1) {
 	                options.minValue = layer._leaflet_id;
 	            }
 	            options.maxValue = layer._leaflet_id;
@@ -64,7 +63,6 @@ var SliderControl = L.Control.extend({
 		}
         return sliderContainer;
     },
-
 
     onRemove: function (map) {
 		//Delete all markers which where added via the slider and remove the slider div
@@ -82,19 +80,23 @@ var SliderControl = L.Control.extend({
 	        max: options.maxValue +1,
 	        step: 1,
 	        slide: function (e, ui) {
-				//If there is no time property, this line has to be removed (or exchanged with a different property
-	            $('#slider-timestamp').html(options.markers[ui.value].feature.properties.time.substr(0, 19));
+				if(!!options.markers[ui.value]) {
+                    //If there is no time property, this line has to be removed (or exchanged with a different property)
+                    $('#slider-timestamp').html(options.markers[ui.value].feature.properties.time.substr(0, 19));
 
-	            for (i = options.minValue; i < ui.value ; i++) {
-	                map.addLayer(options.markers[i]);
-	            }
-	            for (i = ui.value; i <= options.maxValue; i++) {
-	                map.removeLayer(options.markers[i]);
-	            }
+    	            for (var i = options.minValue; i < ui.value ; i++) {
+    	                map.addLayer(options.markers[i]);
+    	            }
+    	            for (var i = ui.value; i <= options.maxValue; i++) {
+    	                map.removeLayer(options.markers[i]);
+    	            }
+                }
 			}
 		});
 		map.addLayer(options.markers[options.minValue]);
 	}
-
-
 });
+
+L.control.sliderControl = function (options) {
+  return new L.Control.SliderControl(options);
+};
