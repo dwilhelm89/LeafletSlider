@@ -71,8 +71,8 @@
 		//Fetch some data from a GeoJSON file
 		$.getJSON("points.json", function (json) {
 		
-			testlayer = L.geoJson(json);
-			sliderControl = new SliderControl({position: "topright", layer: testlayer});
+			var testlayer = L.geoJson(json);
+			var sliderControl = L.control.sliderControl({position: "topright", layer: testlayer});
 		
 			//Make sure to add the slider to the map ;-)
 			map.addControl(sliderControl);
