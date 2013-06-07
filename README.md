@@ -26,8 +26,8 @@ The Control has to be initialized by using the method startSlider(); on the cont
 
 ```javascript
 //Create a marker layer (in the example done via a GeoJSON FeatureCollection)
-testlayer = L.geoJson(json);
-sliderControl = new SliderControl({position: "topright", layer: testlayer});
+var testlayer = L.geoJson(json);
+var sliderControl = L.control.sliderControl({position: "topright", layer: testlayer});
 		
 //Make sure to add the slider to the map ;-)
 map.addControl(sliderControl);
@@ -61,7 +61,7 @@ var polyline = new L.Polyline(pointList, {
 		
 		
 layerGroup = L.layerGroup([marker1, marker2, marker3, marker4, polyline ]);
-var sliderControl = new SliderControl({layer:layerGroup});
+var sliderControl = L.control.sliderControl({layer:layerGroup});
 map.addControl(sliderControl);
 sliderControl.startSlider();
 ````
