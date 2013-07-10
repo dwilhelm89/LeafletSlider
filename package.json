@@ -3,11 +3,7 @@
   "author": "Dennis Wilhelm",
   "version": "0.0.1",
   "description": "The Leaflet Time-Slider enables you to dynamically add and remove Markers on a map by using a JQuery UI slider.",
-  "license": [
-    {
-      "type": "MIT"
-    }
-  ],
+  "license": "MIT",
   "main": {
     "dist/leaflet.SliderControl.min.js"
   },
