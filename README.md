@@ -66,6 +66,17 @@ map.addControl(sliderControl);
 sliderControl.startSlider();
 ````
 
+Bower
+----
+Leaflet Slider is also a registered package in [Bower](http://bower.io/) (based on [nodejs](http://nodejs.org/)). Integrate the source in your project with:
+```
+npm install -g bower
+bower install leaflet-slider
+```
+
+
+
+
 Author
 -----
 Dennis Wilhelm, 2013
