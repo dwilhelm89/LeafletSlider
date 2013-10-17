@@ -4,7 +4,8 @@ L.Control.SliderControl = L.Control.extend({
         layers: null,
         maxValue: -1,
         minValue: -1,
-        markers: null
+        markers: null,
+        range: false
     },
 
     initialize: function (options) {
@@ -75,6 +76,7 @@ L.Control.SliderControl = L.Control.extend({
     startSlider: function () {
         options = this.options;
         $("#leaflet-slider").slider({
+            range: options.range,
             value: options.minValue + 1,
             min: options.minValue,
             max: options.maxValue +1,
@@ -82,13 +84,26 @@ L.Control.SliderControl = L.Control.extend({
             slide: function (e, ui) {
                 if(!!options.markers[ui.value]) {
                     //If there is no time property, this line has to be removed (or exchanged with a different property)
-                    if(options.markers[ui.value]) $('#slider-timestamp').html(options.markers[ui.value].feature.properties.time.substr(0, 19));
-
-                    for (var i = options.minValue; i < ui.value ; i++) {
-                        if(options.markers[i]) map.addLayer(options.markers[i]);
+                    if(options.markers[ui.value].feature.properties.time){
+                        if(options.markers[ui.value]) $('#slider-timestamp').html(options.markers[ui.value].feature.properties.time.substr(0, 19));
                     }
-                    for (var i = ui.value; i <= options.maxValue; i++) {
-                        if(options.markers[i]) map.removeLayer(options.markers[i]);
+                    if(options.range){
+                        for (var i = ui.values[0]; i< ui.values[1]; i++){
+                           if(options.markers[i]) map.addLayer(options.markers[i]); 
+                        }
+                        for (var i = options.maxValue; i > ui.values[1]; i--) {
+                            if(options.markers[i]) map.removeLayer(options.markers[i]);
+                        }
+                        for (var i = options.minValue; i < ui.values[0]; i++) {
+                            if(options.markers[i]) map.removeLayer(options.markers[i]);
+                        }
+                    }else{
+                        for (var i = options.minValue; i < ui.value ; i++) {
+                            if(options.markers[i]) map.addLayer(options.markers[i]);
+                        }
+                        for (var i = ui.value; i <= options.maxValue; i++) {
+                            if(options.markers[i]) map.removeLayer(options.markers[i]);
+                        }
                     }
                 }
             }
