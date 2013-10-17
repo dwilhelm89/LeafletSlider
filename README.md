@@ -36,9 +36,14 @@ map.addControl(sliderControl);
 sliderControl.startSlider();
 ````
 
-If your markers don't have a time property make sure to delete this line: (SliderControl.js - line 86)
+Adjust the used time property so that it fits your project:
 ```javascript
 $('#slider-timestamp').html(options.markers[ui.value].feature.properties.time.substr(0, 19));
+````
+
+You can also use a range-slider by using the range property:
+```javascript
+sliderControl = L.control.sliderControl({position: "topright", layer: testlayer, range: true});
 ````
 
 The Leaflet Slider can also be used for usual LayerGroups with mixed features (Markers and Lines, etc.)
