@@ -61,6 +61,8 @@
 		$.getJSON("points.json", function (json) {
 			var testlayer = L.geoJson(json),
 				sliderControl = L.control.sliderControl({position: "topright", layer: testlayer});
+
+				//For a Range-Slider use the range property:
 				//sliderControl = L.control.sliderControl({position: "topright", layer: testlayer, range: true});
 		
 			//Make sure to add the slider to the map ;-)
@@ -68,7 +70,6 @@
 			//And initialize the slider
 			sliderControl.startSlider();
         });
-		
 		
 	</script>
 </body>
