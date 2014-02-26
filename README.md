@@ -71,6 +71,11 @@ map.addControl(sliderControl);
 sliderControl.startSlider();
 ````
 
+For touch support add:
+```javascript
+<script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.2/jquery.ui.touch-punch.min.js"></script>
+````
+
 Bower
 ----
 Leaflet Slider is also a registered package in [Bower](http://bower.io/) (based on [nodejs](http://nodejs.org/)). Integrate the source in your project with:
