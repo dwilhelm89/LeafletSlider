@@ -28,11 +28,11 @@
   <script>
   var sliderControl = null;
 
-  var map = L.map('map').setView([52.06, 7.40], 10);
+  var myMap = L.map('map').setView([52.06, 7.40], 10);
 
   L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-  }).addTo(map);
+  }).addTo(myMap);
 
   /*
 		Use usual LayerGroups instead of GeoJSON fetched markers
@@ -57,7 +57,7 @@
 		
 		layerGroup = L.layerGroup([marker1, marker2, marker3, marker4, polyline ]);
 		var sliderControl = new SliderControl({layer:layerGroup});
-		map.addControl(sliderControl);
+		myMap.addControl(sliderControl);
 		sliderControl.startSlider();
 		*/
 
@@ -74,7 +74,7 @@
     //sliderControl = L.control.sliderControl({position: "topright", layer: testlayer, range: true});
 
     //Make sure to add the slider to the map ;-)
-    map.addControl(sliderControl);
+    myMap.addControl(sliderControl);
     //And initialize the slider
     sliderControl.startSlider();
   });

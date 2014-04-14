@@ -11,6 +11,7 @@ L.Control.SliderControl = L.Control.extend({
     initialize: function (options) {
         L.Util.setOptions(this, options);
         this._layer = this.options.layer;
+        
     },
 
     setPosition: function (position) {
@@ -82,6 +83,7 @@ L.Control.SliderControl = L.Control.extend({
             max: options.maxValue +1,
             step: 1,
             slide: function (e, ui) {
+                var map = options.map;
                 if(!!options.markers[ui.value]) {
                     //If there is no time property, this line has to be removed (or exchanged with a different property)
                     if(options.markers[ui.value].feature.properties.time){
@@ -108,7 +110,7 @@ L.Control.SliderControl = L.Control.extend({
                 }
             }
         });
-        map.addLayer(options.markers[options.minValue]);
+        options.map.addLayer(options.markers[options.minValue]);
     }
 });
 
