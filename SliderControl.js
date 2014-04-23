@@ -12,7 +12,7 @@ L.Control.SliderControl = L.Control.extend({
     initialize: function (options) {
         L.Util.setOptions(this, options);
         this._layer = this.options.layer;
-        
+
     },
 
     setPosition: function (position) {
@@ -92,7 +92,7 @@ L.Control.SliderControl = L.Control.extend({
                     }
                     if(options.range){
                         for (var i = ui.values[0]; i< ui.values[1]; i++){
-                           if(options.markers[i]) map.addLayer(options.markers[i]); 
+                           if(options.markers[i]) map.addLayer(options.markers[i]);
                         }
                         for (var i = options.maxValue; i > ui.values[1]; i--) {
                             if(options.markers[i]) map.removeLayer(options.markers[i]);
