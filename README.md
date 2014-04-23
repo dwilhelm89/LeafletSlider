@@ -46,6 +46,14 @@ You can also use a range-slider by using the range property:
 sliderControl = L.control.sliderControl({position: "topright", layer: testlayer, range: true});
 ````
 
+If you would prefer to display only the markers at the specific timestamp specified by the slider, use
+the follow property:
+```javascript
+sliderControl = L.control.sliderControl({position: "topright", layer: testlayer, follow: 3});
+```
+This example will display the current marker and the previous 2 markers on the screen. Specify a value
+of 1 to display only a single data point at a time. The range property overrides the follow property.
+
 The Leaflet Slider can also be used for usual LayerGroups with mixed features (Markers and Lines, etc.)
 ```javascript
 var marker1 = L.marker([51.5, -0.09]);
