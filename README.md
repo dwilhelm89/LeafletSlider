@@ -10,9 +10,9 @@ Check out the [Demo](http://dwilhelm89.github.io/LeafletSlider/)!
 
 Usage
 -----
-Add: 
-* ``SliderControl.js`` 
-* [JQuery](http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.js) 
+Add:
+* ``SliderControl.js``
+* [JQuery](http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.js)
 * [JQueryUI - CSS](http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css)
 * [JQueryUI - JS](http://code.jquery.com/ui/1.9.2/jquery-ui.js)
 
@@ -28,7 +28,7 @@ The Control has to be initialized by using the method startSlider(); on the cont
 //Create a marker layer (in the example done via a GeoJSON FeatureCollection)
 var testlayer = L.geoJson(json);
 var sliderControl = L.control.sliderControl({position: "topright", layer: testlayer});
-		
+
 //Make sure to add the slider to the map ;-)
 map.addControl(sliderControl);
 
@@ -46,13 +46,21 @@ You can also use a range-slider by using the range property:
 sliderControl = L.control.sliderControl({position: "topright", layer: testlayer, range: true});
 ````
 
+If you would prefer to display only the markers at the specific timestamp specified by the slider, use
+the follow property:
+```javascript
+sliderControl = L.control.sliderControl({position: "topright", layer: testlayer, follow: 3});
+```
+This example will display the current marker and the previous 2 markers on the screen. Specify a value
+of 1 to display only a single data point at a time. The range property overrides the follow property.
+
 The Leaflet Slider can also be used for usual LayerGroups with mixed features (Markers and Lines, etc.)
 ```javascript
 var marker1 = L.marker([51.5, -0.09]);
 var marker2 = L.marker([51.6, -0.09]);
 var marker3 = L.marker([51.7, -0.09]);
 var marker4 = L.marker([51.8, -0.09]);
-	
+
 var pointA = new L.LatLng(51.8, -0.09);
 var pointB = new L.LatLng(51.9, -0.2);
 var pointList = [pointA, pointB];
@@ -63,8 +71,8 @@ var polyline = new L.Polyline(pointList, {
 	opacity: 1,
 	smoothFactor: 1
 });
-		
-		
+
+
 layerGroup = L.layerGroup([marker1, marker2, marker3, marker4, polyline ]);
 var sliderControl = L.control.sliderControl({layer:layerGroup});
 map.addControl(sliderControl);

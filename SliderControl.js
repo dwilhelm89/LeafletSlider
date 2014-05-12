@@ -5,13 +5,14 @@ L.Control.SliderControl = L.Control.extend({
         maxValue: -1,
         minValue: -1,
         markers: null,
-        range: false
+        range: false,
+        follow: false
     },
 
     initialize: function (options) {
         L.Util.setOptions(this, options);
         this._layer = this.options.layer;
-        
+
     },
 
     setPosition: function (position) {
@@ -91,12 +92,22 @@ L.Control.SliderControl = L.Control.extend({
                     }
                     if(options.range){
                         for (var i = ui.values[0]; i< ui.values[1]; i++){
-                           if(options.markers[i]) map.addLayer(options.markers[i]); 
+                           if(options.markers[i]) map.addLayer(options.markers[i]);
                         }
                         for (var i = options.maxValue; i > ui.values[1]; i--) {
                             if(options.markers[i]) map.removeLayer(options.markers[i]);
                         }
                         for (var i = options.minValue; i < ui.values[0]; i++) {
+                            if(options.markers[i]) map.removeLayer(options.markers[i]);
+                        }
+                    }else if(options.follow){
+                        for (var i = options.minValue; i < (ui.value - options.follow); i++) {
+                            if(options.markers[i]) map.removeLayer(options.markers[i]);
+                        }
+                        for (var i = (ui.value - options.follow); i < ui.value ; i++) {
+                            if(options.markers[i]) map.addLayer(options.markers[i]);
+                        }
+                        for (var i = ui.value; i <= options.maxValue; i++) {
                             if(options.markers[i]) map.removeLayer(options.markers[i]);
                         }
                     }else{
