@@ -52,7 +52,6 @@ L.Control.SliderControl = L.Control.extend({
 
         //If a layer has been provided: calculate the min and max values for the slider
         if (this._layer) {
-            console.log(this._layer)
             this._layer.eachLayer(function (layer) {
                 if (options.minValue === -1) {
                     options.minValue = layer._leaflet_id;
@@ -61,7 +60,6 @@ L.Control.SliderControl = L.Control.extend({
                 options.markers[layer._leaflet_id] = layer;
             });
             this.options = options;
-            console.log(this.options)
         } else {
             console.log("Error: You have to specify a layer via new SliderControl({layer: your_layer});");
         }
@@ -125,7 +123,6 @@ L.Control.SliderControl = L.Control.extend({
                     }else{
                         // jquery ui for point before
                         for (var i = _options.minValue; i <= ui.value ; i++) {
-                            console.log(_options.markers[i]);
                             if(_options.markers[i]) map.addLayer(_options.markers[i]);
                         }
                         for (var i = (ui.value + 1); i <= _options.maxValue; i++) {
