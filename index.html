@@ -34,35 +34,34 @@
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(myMap);
 
-  /*
-		Use usual LayerGroups instead of GeoJSON fetched markers
+  
+		//Use usual LayerGroups instead of GeoJSON fetched markers
 		
-		var marker1 = L.marker([51.5, -0.09]);
-		var marker2 = L.marker([51.6, -0.09]);
-		var marker3 = L.marker([51.7, -0.09]);
-		var marker4 = L.marker([51.8, -0.09]);
+		// var marker1 = L.marker([51.933292258, 7.582512743], {time: "2013-01-22 08:42:26+01"});
+		// var marker2 = L.marker([51.9, 7.6], {time: "2013-01-22 10:00:26+01"});
+		// var marker3 = L.marker([51.7, 7.7], {time: "2013-01-22 10:03:29+01"});
+		// var marker4 = L.marker([51.8, -0.09]);
 		
-		var pointA = new L.LatLng(51.8, -0.09);
-		var pointB = new L.LatLng(51.9, -0.2);
-		var pointList = [pointA, pointB];
+		// var pointA = new L.LatLng(51.8, -0.09);
+		// var pointB = new L.LatLng(51.9, -0.2);
+		// var pointList = [pointA, pointB];
 
-		var polyline = new L.Polyline(pointList, {
-			color: 'red',
-			weight: 3,
-			opacity: 1,
-			smoothFactor: 1
-
-		});
+		// var polyline = new L.Polyline(pointList, {
+		// 	color: 'red',
+		// 	weight: 3,
+		// 	opacity: 1,
+		// 	smoothFactor: 1
+		// });
 		
 		
-		layerGroup = L.layerGroup([marker1, marker2, marker3, marker4, polyline ]);
-		var sliderControl = new SliderControl({layer:layerGroup});
-		myMap.addControl(sliderControl);
-		sliderControl.startSlider();
-		*/
+		// layerGroup = L.layerGroup([marker1, marker2, marker3]);
+		// var sliderControl = L.control.sliderControl({layer:layerGroup, follow: true});
+		// myMap.addControl(sliderControl);
+		// sliderControl.startSlider();
+	
 
 
-  //Fetch some data from a GeoJSON file
+  // Fetch some data from a GeoJSON file
   $.getJSON("points.json", function(json) {
     var testlayer = L.geoJson(json),
       sliderControl = L.control.sliderControl({
@@ -71,7 +70,7 @@
       });
 
     //For a Range-Slider use the range property:
-    //sliderControl = L.control.sliderControl({position: "topright", layer: testlayer, range: true});
+    sliderControl = L.control.sliderControl({position: "topright", layer: testlayer, range: true});
 
     //Make sure to add the slider to the map ;-)
     myMap.addControl(sliderControl);
