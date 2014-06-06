@@ -100,32 +100,35 @@ L.Control.SliderControl = L.Control.extend({
                             console.error("You have to have a time property");
                         }
                     }
+                    
+                    var i;
                     if(_options.range){
                         // jquery ui using range
-                        for (var i = ui.values[0]; i <= ui.values[1]; i++){
+                        for (i = ui.values[0]; i <= ui.values[1]; i++){
                            if(_options.markers[i]) map.addLayer(_options.markers[i]);
                         }
-                        for (var i = _options.maxValue; i > ui.values[1]; i--) {
+                        for (i = _options.maxValue; i > ui.values[1]; i--) {
                             if(_options.markers[i]) map.removeLayer(_options.markers[i]);
                         }
-                        for (var i = _options.minValue; i < ui.values[0]; i++) {
+                        for (i = _options.minValue; i < ui.values[0]; i++) {
                             if(_options.markers[i]) map.removeLayer(_options.markers[i]);
                         }
                     }else if(_options.follow){
-                        map.addLayer(_options.markers[ui.value]);
-                        for (var i = _options.minValue; i <= (ui.value - 1); i++) {
+                        for (i = _options.minValue; i < (ui.value - _options.follow); i++) {
                             if(_options.markers[i]) map.removeLayer(_options.markers[i]);
                         }
-
-                        for (var i = (ui.value + 1); i <= _options.maxValue; i++) {
+                        for (i = (ui.value - _options.follow); i < ui.value ; i++) {
+                            if(_options.markers[i]) map.addLayer(_options.markers[i]);
+                        }
+                        for (i = ui.value; i <= _options.maxValue; i++) {
                             if(_options.markers[i]) map.removeLayer(_options.markers[i]);
                         }
                     }else{
                         // jquery ui for point before
-                        for (var i = _options.minValue; i <= ui.value ; i++) {
+                        for (i = _options.minValue; i <= ui.value ; i++) {
                             if(_options.markers[i]) map.addLayer(_options.markers[i]);
                         }
-                        for (var i = (ui.value + 1); i <= _options.maxValue; i++) {
+                        for (i = (ui.value + 1); i <= _options.maxValue; i++) {
                             if(_options.markers[i]) map.removeLayer(_options.markers[i]);
                         }
                     }
