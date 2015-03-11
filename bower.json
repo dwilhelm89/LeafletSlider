@@ -1,6 +1,6 @@
 {
     "name": "leaflet-slider",
     "homepage": "https://github.com/dwilhelm89/LeafletSlider",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "main": "dist/leaflet.SliderControl.min.js"
 }
