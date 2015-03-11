@@ -139,7 +139,7 @@ L.Control.SliderControl = L.Control.extend({
             }
         });
         if (!_options.range && _options.alwaysShowDate) {
-            $('#slider-timestamp').html(_options.markers[24].feature.properties.time.substr(0, 19));
+            $('#slider-timestamp').html(_options.markers[_options.minValue].feature.properties.time.substr(0, 19));
         }
         _options.map.addLayer(_options.markers[_options.minValue]);
     }
