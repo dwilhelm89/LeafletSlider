@@ -6,7 +6,8 @@ L.Control.SliderControl = L.Control.extend({
         minValue: -1,
         markers: null,
         range: false,
-        follow: false
+        follow: false,
+        alwaysShowDate : false
     },
 
     initialize: function (options) {
@@ -43,8 +44,10 @@ L.Control.SliderControl = L.Control.extend({
         });
         $(document).mouseup(function () {
             map.dragging.enable();
-            //Only show the slider timestamp while using the slider
-            $('#slider-timestamp').html('');
+            //Hide the slider timestamp if not range and option alwaysShowDate is set on false
+            if (options.range || !options.alwaysShowDate) {
+                $('#slider-timestamp').html('');
+            }
         });
 
         var options = this.options;
@@ -135,6 +138,9 @@ L.Control.SliderControl = L.Control.extend({
                 }
             }
         });
+        if (!_options.range && _options.alwaysShowDate) {
+            $('#slider-timestamp').html(_options.markers[_options.minValue].feature.properties.time.substr(0, 19));
+        }
         _options.map.addLayer(_options.markers[_options.minValue]);
     }
 });
