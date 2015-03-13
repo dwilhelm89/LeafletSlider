@@ -3,7 +3,7 @@ L.Control.SliderControl = L.Control.extend({
         position: 'topright',
         layers: null,
         maxValue: -1,
-        minValue: -1,
+        minValue: 0,
         markers: null,
         range: false,
         follow: false,
@@ -55,13 +55,12 @@ L.Control.SliderControl = L.Control.extend({
 
         //If a layer has been provided: calculate the min and max values for the slider
         if (this._layer) {
+            var index_temp = 0;
             this._layer.eachLayer(function (layer) {
-                if (options.minValue === -1) {
-                    options.minValue = layer._leaflet_id;
-                }
-                options.maxValue = layer._leaflet_id;
-                options.markers[layer._leaflet_id] = layer;
+                options.markers[index_temp] = layer;
+                ++index_temp;
             });
+            options.maxValue = index_temp - 1;
             this.options = options;
         } else {
             console.log("Error: You have to specify a layer via new SliderControl({layer: your_layer});");
@@ -81,9 +80,9 @@ L.Control.SliderControl = L.Control.extend({
         _options = this.options;
         $("#leaflet-slider").slider({
             range: _options.range,
-            value: _options.minValue + 1,
+            value: _options.minValue,
             min: _options.minValue,
-            max: _options.maxValue +1,
+            max: _options.maxValue,
             step: 1,
             slide: function (e, ui) {
                 var map = _options.map;
