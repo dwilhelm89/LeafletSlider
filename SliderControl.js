@@ -4,6 +4,7 @@ L.Control.SliderControl = L.Control.extend({
         layers: null,
         maxValue: -1,
         minValue: 0,
+        showAllOnStart: false,
         markers: null,
         range: false,
         follow: false,
@@ -78,9 +79,16 @@ L.Control.SliderControl = L.Control.extend({
 
     startSlider: function () {
         _options = this.options;
+        var index_start = _options.minValue;
+        if(_options.showAllOnStart){
+            index_start = _options.maxValue;
+            if(_options.range) _options.values = [_options.minValue,_options.maxValue];
+            else _options.value = _options.maxValue;
+        }
         $("#leaflet-slider").slider({
             range: _options.range,
-            value: _options.minValue,
+            value: _options.value,
+            values: _options.values,
             min: _options.minValue,
             max: _options.maxValue,
             step: 1,
@@ -138,9 +146,11 @@ L.Control.SliderControl = L.Control.extend({
             }
         });
         if (!_options.range && _options.alwaysShowDate) {
-            $('#slider-timestamp').html(_options.markers[_options.minValue].feature.properties.time.substr(0, 19));
+            $('#slider-timestamp').html(_options.markers[index_start].feature.properties.time.substr(0, 19));
         }
-        _options.map.addLayer(_options.markers[_options.minValue]);
+        for (i = _options.minValue; i <= index_start; i++) {
+            _options.map.addLayer(_options.markers[i]);
+        }
     }
 });
 
