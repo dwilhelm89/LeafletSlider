@@ -9,7 +9,7 @@ L.Control.SliderControl = L.Control.extend({
         range: false,
         follow: false,
         alwaysShowDate : false,
-        bounding: null
+        rezoom: null
     },
 
     initialize: function (options) {
@@ -142,9 +142,9 @@ L.Control.SliderControl = L.Control.extend({
                         }
                     }
                 };
-                if(_options.bounding) {
+                if(_options.rezoom) {
                     map.fitBounds(fg.getBounds(), {
-                        maxZoom: _options.bounding
+                        maxZoom: _options.rezoom
                     });
                 }
             }
