@@ -112,34 +112,23 @@ L.Control.SliderControl = L.Control.extend({
                     }
                     
                     var i;
+                    // clear markers
+                    for (i = _options.minValue; i <= _options.maxValue; i++) {
+                        if(_options.markers[i]) map.removeLayer(_options.markers[i]);
+                    }
                     if(_options.range){
                         // jquery ui using range
                         for (i = ui.values[0]; i <= ui.values[1]; i++){
                            if(_options.markers[i]) map.addLayer(_options.markers[i]);
                         }
-                        for (i = _options.maxValue; i > ui.values[1]; i--) {
-                            if(_options.markers[i]) map.removeLayer(_options.markers[i]);
-                        }
-                        for (i = _options.minValue; i < ui.values[0]; i++) {
-                            if(_options.markers[i]) map.removeLayer(_options.markers[i]);
-                        }
                     }else if(_options.follow){
-                        for (i = _options.minValue; i < (ui.value - _options.follow); i++) {
-                            if(_options.markers[i]) map.removeLayer(_options.markers[i]);
-                        }
-                        for (i = (ui.value - _options.follow); i < ui.value ; i++) {
+                        for (i = ui.value - _options.follow + 1; i <= ui.value ; i++) {
                             if(_options.markers[i]) map.addLayer(_options.markers[i]);
-                        }
-                        for (i = ui.value; i <= _options.maxValue; i++) {
-                            if(_options.markers[i]) map.removeLayer(_options.markers[i]);
                         }
                     }else{
                         // jquery ui for point before
                         for (i = _options.minValue; i <= ui.value ; i++) {
                             if(_options.markers[i]) map.addLayer(_options.markers[i]);
-                        }
-                        for (i = (ui.value + 1); i <= _options.maxValue; i++) {
-                            if(_options.markers[i]) map.removeLayer(_options.markers[i]);
                         }
                     }
                 }
