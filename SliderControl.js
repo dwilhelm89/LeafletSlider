@@ -8,7 +8,8 @@ L.Control.SliderControl = L.Control.extend({
         markers: null,
         range: false,
         follow: false,
-        alwaysShowDate : false
+        alwaysShowDate : false,
+        rezoom: null
     },
 
     initialize: function (options) {
@@ -94,6 +95,7 @@ L.Control.SliderControl = L.Control.extend({
             step: 1,
             slide: function (e, ui) {
                 var map = _options.map;
+                var fg = L.featureGroup();
                 if(!!_options.markers[ui.value]) {
                     // If there is no time property, this line has to be removed (or exchanged with a different property)
                     if(_options.markers[ui.value].feature !== undefined) {
@@ -119,18 +121,31 @@ L.Control.SliderControl = L.Control.extend({
                     if(_options.range){
                         // jquery ui using range
                         for (i = ui.values[0]; i <= ui.values[1]; i++){
-                           if(_options.markers[i]) map.addLayer(_options.markers[i]);
+                           if(_options.markers[i]) {
+                               map.addLayer(_options.markers[i]);
+                               fg.addLayer(_options.markers[i]);
+                           }
                         }
                     }else if(_options.follow){
                         for (i = ui.value - _options.follow + 1; i <= ui.value ; i++) {
-                            if(_options.markers[i]) map.addLayer(_options.markers[i]);
+                            if(_options.markers[i]) {
+                                map.addLayer(_options.markers[i]);
+                                fg.addLayer(_options.markers[i]);
+                            }
                         }
                     }else{
-                        // jquery ui for point before
                         for (i = _options.minValue; i <= ui.value ; i++) {
-                            if(_options.markers[i]) map.addLayer(_options.markers[i]);
+                            if(_options.markers[i]) {
+                                map.addLayer(_options.markers[i]);
+                                fg.addLayer(_options.markers[i]);
+                            }
                         }
                     }
+                };
+                if(_options.rezoom) {
+                    map.fitBounds(fg.getBounds(), {
+                        maxZoom: _options.rezoom
+                    });
                 }
             }
         });
