@@ -52,7 +52,12 @@ the follow property:
 sliderControl = L.control.sliderControl({position: "topright", layer: testlayer, follow: 3});
 ```
 This example will display the current marker and the previous 2 markers on the screen. Specify a value
-of 1 to display only a single data point at a time. The range property overrides the follow property.
+of 1 (or true) to display only a single data point at a time, and a value of null (or false) to display the current marker and all previous markers. The range property overrides the follow property.
+
+You can use the rezoom property to ensure the markers being displayed remain in view. Nothing happens with a value of null (or false), but an integer value will be the maximum zoom level Leaflet uses as it updates the map's bounds for the markers displayed. 
+```javascript
+sliderControl = L.control.sliderControl({position: "topright", layer: testlayer, rezoom: 10});
+```
 
 The Leaflet Slider can also be used for usual LayerGroups with mixed features (Markers and Lines, etc.)
 ```javascript
