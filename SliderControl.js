@@ -2,6 +2,10 @@ L.Control.SliderControl = L.Control.extend({
     options: {
         position: 'topright',
         layers: null,
+        timeAttribute: 'time',
+        isEpoch: false,     // whether the time attribute is seconds elapsed from epoch
+        startTimeIdx: 0,    // where to start looking for a timestring
+        timeStrLength: 19,  // the size of  yyyy-mm-dd hh:mm:ss - if millis are present this will be larger
         maxValue: -1,
         minValue: 0,
         showAllOnStart: false,
@@ -16,6 +20,13 @@ L.Control.SliderControl = L.Control.extend({
         L.Util.setOptions(this, options);
         this._layer = this.options.layer;
 
+    },
+
+    extractTimeStamp: function(time) {
+        if (options.isEpoch) {
+            time = (new Date(parseInt(time))).toString(); // this is local time
+        }
+        return time.substr(options.startTimeIdx, options.startTimeIdx + options.timeStrLength);
     },
 
     setPosition: function (position) {
@@ -99,17 +110,19 @@ L.Control.SliderControl = L.Control.extend({
                 if(!!_options.markers[ui.value]) {
                     // If there is no time property, this line has to be removed (or exchanged with a different property)
                     if(_options.markers[ui.value].feature !== undefined) {
-                        if(_options.markers[ui.value].feature.properties.time){
-                            if(_options.markers[ui.value]) $('#slider-timestamp').html(_options.markers[ui.value].feature.properties.time.substr(0, 19));
+                        if(_options.markers[ui.value].feature.properties[options.timeAttribute]){
+                            if(_options.markers[ui.value]) $('#slider-timestamp').html(
+                                this.extractTimestamp(_options.markers[ui.value].feature.properties[options.timeAttribute]));
                         }else {
-                            console.error("You have to have a time property");
+                            console.error("Time property "+options.timeAttribute+" not found in data");
                         }
                     }else {
                         // set by leaflet Vector Layers
-                        if(_options.markers [ui.value].options.time){
-                            if(_options.markers[ui.value]) $('#slider-timestamp').html(_options.markers[ui.value].options.time.substr(0, 19));
+                        if(_options.markers [ui.value].options[options.timeAttribute]){
+                            if(_options.markers[ui.value]) $('#slider-timestamp').html(
+                                this.extractTimestamp(_options.markers[ui.value].options[options.timeAttribute]));
                         }else {
-                            console.error("You have to have a time property");
+                            console.error("Time property "+options.timeAttribute+" not found in data");
                         }
                     }
                     
@@ -150,7 +163,7 @@ L.Control.SliderControl = L.Control.extend({
             }
         });
         if (!_options.range && _options.alwaysShowDate) {
-            $('#slider-timestamp').html(_options.markers[index_start].feature.properties.time.substr(0, 19));
+            $('#slider-timestamp').html(this.extractTimeStamp(_options.markers[index_start].feature.properties[options.timeAttribute]));
         }
         for (i = _options.minValue; i <= index_start; i++) {
             _options.map.addLayer(_options.markers[i]);
