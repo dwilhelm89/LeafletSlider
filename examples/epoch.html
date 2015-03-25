@@ -23,7 +23,7 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.2/jquery.ui.touch-punch.min.js"></script>
 
 
-    <script src="SliderControl.js"></script>
+    <script src="../SliderControl.js"></script>
 
     <script>
     var sliderControl = null;
@@ -35,34 +35,8 @@
     }).addTo(myMap);
 
 
-    //Use usual LayerGroups instead of GeoJSON fetched markers
-    /*
-    var marker1 = L.marker([51.933292258, 7.582512743], {time: "2013-01-22 08:42:26+01"});
-    var marker2 = L.marker([51.9, 7.6], {time: "2013-01-22 10:00:26+01"});
-    var marker3 = L.marker([51.7, 7.7], {time: "2013-01-22 10:03:29+01"});
-    
-    var pointA = new L.LatLng(51.8, -0.09);
-    var pointB = new L.LatLng(51.9, -0.2);
-    var pointList = [pointA, pointB];
-
-    var polyline = new L.Polyline(pointList, {
-      time: "2013-01-22 10:24:59+01",
-      color: 'red',
-      weight: 3,
-      opacity: 1,
-      smoothFactor: 1
-    });
-    
-    
-    layerGroup = L.layerGroup([marker1, marker2, marker3, polyline]);
-    var sliderControl = L.control.sliderControl({layer:layerGroup, follow: true});
-    myMap.addControl(sliderControl);
-    sliderControl.startSlider();
-  */
-
-
     //Fetch some data from a GeoJSON file
-    $.getJSON("points.json", function(json) {
+    $.getJSON("epoch.json", function(json) {
         var testlayer = L.geoJson(json),
             sliderControl = L.control.sliderControl({
                 position: "topright",
@@ -72,7 +46,9 @@
         //For a Range-Slider use the range property:
         sliderControl = L.control.sliderControl({
             position: "topright",
-            layer: testlayer,
+            layer: testlayer, 
+            timeAttribute: "epoch",
+            isEpoch: true,
             range: true
         });
 
