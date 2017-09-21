@@ -12,6 +12,7 @@ L.Control.SliderControl = L.Control.extend({
         markers: null,
         range: false,
         follow: false,
+        sameDate: false,
         alwaysShowDate : false,
         rezoom: null
     },
@@ -104,6 +105,7 @@ L.Control.SliderControl = L.Control.extend({
             values: _options.values,
             min: _options.minValue,
             max: _options.maxValue,
+            sameDate: _options.sameDate,
             step: 1,
             slide: function (e, ui) {
                 var map = _options.map;
@@ -146,6 +148,16 @@ L.Control.SliderControl = L.Control.extend({
                                 map.addLayer(_options.markers[i]);
                                 fg.addLayer(_options.markers[i]);
                             }
+                        }
+                    }else if(_options.sameDate){
+                        var currentTime;
+                        if (_options.markers[ui.value].feature !== undefined) {
+                            currentTime = _options.markers[ui.value].feature.properties.time;
+                        } else {
+                            currentTime = _options.markers[ui.value].options.time;
+                        }
+                        for (i = _options.minValue; i <= _options.maxValue; i++) {
+                            if(_options.markers[i].options.time == currentTime) map.addLayer(_options.markers[i]);
                         }
                     }else{
                         for (i = _options.minValue; i <= ui.value ; i++) {
