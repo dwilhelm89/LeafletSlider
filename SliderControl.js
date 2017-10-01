@@ -88,6 +88,10 @@ L.Control.SliderControl = L.Control.extend({
             map.removeLayer(this.options.markers[i]);
         }
         $('#leaflet-slider').remove();
+
+        // unbind listeners to prevent memory leaks
+        $(document).off("mouseup");
+        $(".slider").off("mousedown");
     },
 
     startSlider: function () {
@@ -128,7 +132,7 @@ L.Control.SliderControl = L.Control.extend({
                             console.error("Time property "+ _options.timeAttribute +" not found in data");
                         }
                     }
-                    
+
                     var i;
                     // clear markers
                     for (i = _options.minValue; i <= _options.maxValue; i++) {
